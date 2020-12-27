@@ -12,17 +12,15 @@ MAXFILESIZE = 1024 * 1024 * 1024
 MAXJSONSIZE = 16 * 1024 * 1024
 
 
-# Creating a key-value pair
+
 '''
-Checks to perform 
+Create operation, basic checks
 1) Size of file less than 1GB i.e 1024*1024*1024
 2) Size of JSON Object is less than 16KB i.e 
 3) If key exists & is alphabet process creation
 
 Invoke using - create(key, value, optional_timeout)
 '''
-
-
 def create(key, value, timeout = 0):
    if key in HASHTABLE:
       print("Error: Key exists already")
@@ -48,7 +46,6 @@ Read operation, basic checks:
 
 Invoke using- read(key_name)
 '''
-
 def read(key):
    if key not in HASHTABLE:
       print("Error 404: Item not found, please enter valid key")
@@ -63,3 +60,24 @@ def read(key):
       else:
          return readable
 
+
+'''
+Update Operation, basic checks
+1) If key expired
+2) If value replacing meets requirements
+3) If key in Hashtable
+Invoke using- update(key, value)
+'''
+def update(key, value):
+   if key in HASHTABLE:
+      currentValue, currentExpiration = HASHTABLE[key]
+      if currentExpiration != 0:
+         if time.time() < currentExpiration:
+            HASHTABLE[key] = [value, currentExpiration]
+         else:
+            print("Error Timeout: Key Expired")
+      else:
+         HASHTABLE[key] = [value, currentExpiration]
+   else:
+      print("Error 404: Key not found in data-store")
+   
