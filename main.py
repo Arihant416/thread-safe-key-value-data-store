@@ -2,14 +2,17 @@ import time  # This module will be responsible for expiration of a key
 import threading
 from threading import*
 
+
+
 # Global Dictionary/Hashtable to store the data in key-value pair
 DATASTORE = {}
 
-# overall file size i.e DATASTORE's size shouldn't exceed 1GB
-MAXFILESIZE = 1024 * 1024 * 1024
 
-# MAXSIZE for JSON Object
-MAXJSONSIZE = 16 * 1024 * 1024
+''' 
+overall file size i.e DATASTORE's size shouldn't exceed 1GB
+overall JSON Size is capped to 16KB
+'''
+MAXFILESIZE, MAXJSONSIZE = 1024 * 1024 * 1024, 16 * 1024 * 1024
 
 
 
